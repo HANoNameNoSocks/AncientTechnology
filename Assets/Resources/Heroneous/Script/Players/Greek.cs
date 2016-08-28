@@ -79,7 +79,9 @@ public class Greek : MonoBehaviour {
     if (element != null) {
       // thrown element ?
       if (element.getState() == ElementState.THROWN) {
-        shock();
+        if (element.getThrower() != this) { 
+          shock();
+        }
       } else {
         element.setOwner(this);
         possession = element;
@@ -105,7 +107,7 @@ public class Greek : MonoBehaviour {
   }
 
   void throwElement() {
-    possession.thrown(nextForce*3);
+    possession.thrown(nextForce*3, transform.position + (nextForce*3).normalized);
     possession = null;
   }
 
@@ -115,6 +117,10 @@ public class Greek : MonoBehaviour {
 
   public Vector3 getHeadPosition() {
     return transform.position + decalageTete;
+  }
+
+  public Vector3 getThrowPosition(Vector3 velocity) {
+    return transform.position + velocity.normalized;
   }
 
   #endregion

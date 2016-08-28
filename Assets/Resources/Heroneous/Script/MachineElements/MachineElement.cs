@@ -32,12 +32,13 @@ public class MachineElement : MonoBehaviour {
     transform.position = owner.getHeadPosition();
   }
 
-  public void thrown(Vector2 force) {
+  public void thrown(Vector2 force, Vector3 position) {
     state = ElementState.THROWN;
     thrower = owner;
     owner = null;
     transform.parent = null;
     elementBody.isKinematic = false;
+    transform.position = position;
     elementBody.AddForce(force);
   }
 
