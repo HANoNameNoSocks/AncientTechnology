@@ -39,7 +39,7 @@ public class TileMapBehaviour : MonoBehaviour {
       tiles [i].GetComponent<TileBehaviour> ().setSpriteSheetIndex (tileSprites[mapInfo.tileData[i] - 1]);
 
       tiles[i].GetComponent<TileBehaviour> ().setPosition (new Vector2((i%mapInfo.width) * tileSize, (mapInfo.height - ((int)(i/ mapInfo.width))) * tileSize));
-      print (tiles [i].transform.position);
+
       tiles[i].GetComponent<TileBehaviour> ().setSolid (mapInfo.collisionData [i] == 0);
     }
   }
