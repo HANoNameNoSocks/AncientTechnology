@@ -47,6 +47,6 @@ public class Xbox360Joypad : Controller {
   }
 
   public override bool GetInGameDash() {
-    return Input.GetAxis("TriggersR_" + padNumber) > 0 || Input.GetButton("RB_" + padNumber) || Input.GetAxis("TriggersL_" + padNumber) > 0 || Input.GetButton("LB_" + padNumber);
+    return Input.GetButton("RB_" + padNumber) || Input.GetButton("LB_" + padNumber);
   }
 }
