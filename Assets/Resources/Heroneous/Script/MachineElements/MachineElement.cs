@@ -6,12 +6,14 @@ public class MachineElement : MonoBehaviour {
   private Greek owner;
   private Greek thrower;
   private Rigidbody2D elementBody;
+  private BoxCollider2D elementCollider;
   private ElementState state = ElementState.NORMAL;
 
 	// Use this for initialization
 	void Start () {
     elementBody = gameObject.GetComponent<Rigidbody2D>();
-	}
+    elementCollider = gameObject.GetComponent<BoxCollider2D>();
+  }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,6 +29,7 @@ public class MachineElement : MonoBehaviour {
     this.owner = owner;
     thrower = null;
     elementBody.isKinematic = true;
+    elementCollider.enabled = false;
     transform.parent = owner.transform;
     transform.position = owner.getHeadPosition();
   }
@@ -37,6 +40,7 @@ public class MachineElement : MonoBehaviour {
     owner = null;
     transform.parent = null;
     elementBody.isKinematic = false;
+    elementCollider.enabled = true;
     transform.position = position;
     elementBody.AddForce(force);
   }

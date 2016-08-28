@@ -6,7 +6,7 @@ public class Greek : MonoBehaviour {
 
   public int Player;
   private int Speed = 5000;
-  private Vector3 decalageTete = new Vector3(0, 0.5f, 0);
+  private Vector3 decalageTete = new Vector3(0, 0.4f, 0);
   private Controller controller;
 
   private Rigidbody2D characterBody;
