@@ -15,7 +15,6 @@ public class MachineElement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-    print(elementBody.velocity.magnitude);
     if (elementBody.velocity.magnitude <= 2) {
       state = ElementState.NORMAL;
     }
