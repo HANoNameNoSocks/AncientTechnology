@@ -24,6 +24,7 @@ public class Greek : MonoBehaviour {
 
   private int score;
 
+  private int direction = 3;
   private int currentAnimation = 7;
 
 
@@ -158,11 +159,13 @@ public class Greek : MonoBehaviour {
 
   public void updateAnimation() {
     int nextAnimation = 4;
+
+    Vector2 velocity = characterBody.velocity;
     
     if (state == GreekState.NORMAL) {
       if (nextForce.magnitude == 0) {
         // stop
-        nextAnimation = currentAnimation % 4 + 4;
+        nextAnimation = direction + 4;
       } else if (Math.Abs(nextForce.x) > Math.Abs(nextForce.y)) {
         if (nextForce.x > 0) {
           nextAnimation = 0;
@@ -176,10 +179,41 @@ public class Greek : MonoBehaviour {
           nextAnimation = 3;
         }
       }
+    } else if(state == GreekState.DASHING) {
+      if (Math.Abs(velocity.x) > Math.Abs(velocity.y)) {
+        if (velocity.x > 0) {
+          nextAnimation = 8;
+        } else {
+          nextAnimation = 9;
+        }
+      } else {
+        if (velocity.y > 0) {
+          nextAnimation = 10;
+        } else {
+          nextAnimation = 11;
+        }
+      }
+    } else if (state == GreekState.SHOCKED) {
+      nextAnimation = direction + 12;
+      /*nextAnimation = currentAnimation % 4 + 10;
+      if (Math.Abs(velocity.x) > Math.Abs(velocity.y)) {
+        if (velocity.x > 0) {
+          nextAnimation = 12;
+        } else {
+          nextAnimation = 13;
+        }
+      } else {
+        if (velocity.y > 0) {
+          nextAnimation = 14;
+        } else {
+          nextAnimation = 15;
+        }
+      }*/
     }
 
     transform.GetComponent<Animator>().SetInteger("status", nextAnimation);
     currentAnimation = nextAnimation;
+    direction = currentAnimation % 4;
   }
 
   #endregion
