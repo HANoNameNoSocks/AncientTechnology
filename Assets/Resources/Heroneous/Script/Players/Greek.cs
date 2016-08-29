@@ -8,7 +8,7 @@ public class Greek : MonoBehaviour {
   public int Player;
   public GameObject camera;
   private int Speed = 5000;
-  private Vector3 decalageTete = new Vector3(0, 0.4f, 0);
+  private Vector3 decalageTete = new Vector3(-0.16f, 0.4f, 0);
   private Controller controller;
 
   private Rigidbody2D characterBody;

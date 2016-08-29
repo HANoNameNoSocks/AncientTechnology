@@ -67,6 +67,6 @@ public class MachineController : MonoBehaviour {
 
   private void setElementImage()
   {
-    ElementSprite.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite>(ObjectTypesManager.Instance.getImagePath (currentOrder));
+    ElementSprite.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite>(ObjectTypesManager.Instance.getSchematicsImagePath(currentOrder));
   }
 }
