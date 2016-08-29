@@ -20,7 +20,7 @@ public class TitleScreenHandler : MonoBehaviour {
     players[3] = player_4;
 
     for (int i = 0; i < 4; i++) {
-      players[i].SetActive(false); ;
+      players[i].SetActive(false);
     }
 	}
 	
@@ -44,14 +44,10 @@ public class TitleScreenHandler : MonoBehaviour {
   void addPlayer(int i) {
     GameManager.Instance.addPlayer(i);
     players[i].SetActive(true);
-    //players[i].GetComponent<SpriteRenderer>().enabled = true;
-    //players[i].GetComponent<Greek>().enabled = true;
   }
 
   void removePlayer(int i) {
     GameManager.Instance.removePlayer(i);
     players[i].SetActive(false);
-    //players[i].GetComponent<SpriteRenderer>().enabled = false;
-    //players[i].GetComponent<Greek>().enabled = false;
   }
 }
