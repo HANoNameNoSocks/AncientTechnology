@@ -120,6 +120,9 @@ public class Greek : MonoBehaviour {
   }
 
   void throwElement() {
+    if (nextForce == Vector3.zero) {
+      dropElement();
+    }
     possession.thrown(nextForce*3, transform.position + (nextForce*3).normalized);
     possession = null;
   }
