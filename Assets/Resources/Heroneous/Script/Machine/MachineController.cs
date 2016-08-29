@@ -39,6 +39,7 @@ public class MachineController : MonoBehaviour {
     Component script = collision.gameObject.GetComponent<MachineElement> ();
     if (script != null) {
       if (collision.gameObject.GetComponent<MachineElement>().getObjectType() == currentOrder) {
+        collision.gameObject.GetComponent<MachineElement> ().getThrower ().GetComponent<Greek> ().incrementScore ();
         Destroy (collision.gameObject);
         resetOrder ();
       }
@@ -51,7 +52,6 @@ public class MachineController : MonoBehaviour {
     orderDuration = getRandomDuration(OrderTime, OrderTimeVariance);
     currentOrder = ObjectTypesManager.Instance.getRandomItem();
     setElementImage ();
-    print ("Gheuuuuah... Ramenez moi un " + currentOrder + " les enfants !");
   }
 
   private float getRandomDuration(float fixedTime, float variance)

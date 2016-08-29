@@ -20,10 +20,13 @@ public class Greek : MonoBehaviour {
 
   MachineElement possession;
 
+  private int score;
+
 
   void Start () {
     controller = ControllerManager.Instance.Controllers[Player];
     characterBody = GetComponent<Rigidbody2D>();
+    score = 0;
   }
 
   #region states and draw
@@ -121,6 +124,16 @@ public class Greek : MonoBehaviour {
 
   public Vector3 getThrowPosition(Vector3 velocity) {
     return transform.position + velocity.normalized;
+  }
+
+  public void incrementScore()
+  {
+    score++;
+  }
+
+  public float getScore()
+  {
+    return score;
   }
 
   #endregion
