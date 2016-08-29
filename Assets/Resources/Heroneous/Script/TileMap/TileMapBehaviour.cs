@@ -7,6 +7,7 @@ public class TileMapBehaviour : MonoBehaviour {
   public string SpriteSheetPath;
   public float PixelsPerUnit;
   public GameObject tilePrefab;
+  public GameObject machinePartPrefab;
   private TileMapInfo mapInfo;
   private GameObject[] tiles;
 
@@ -16,6 +17,7 @@ public class TileMapBehaviour : MonoBehaviour {
     tileSprites = Resources.LoadAll<Sprite> (SpriteSheetPath);
     initTileMapInfo();
     initTiles();
+    initObjects ();
     setTileMapPosition ();
 	}
 
@@ -41,6 +43,21 @@ public class TileMapBehaviour : MonoBehaviour {
       tiles[i].GetComponent<TileBehaviour> ().setPosition (new Vector2((i%mapInfo.width) * tileSize, (mapInfo.height - ((int)(i/ mapInfo.width))) * tileSize));
 
       tiles[i].GetComponent<TileBehaviour> ().setSolid (mapInfo.collisionData [i] == 0);
+    }
+  }
+
+  private void initObjects()
+  {
+    float tileSize = mapInfo.tileHeight / PixelsPerUnit;
+
+    for (int i = 0; i < mapInfo.tileData.Length; i++) 
+    {
+      Vector3 itemPosition = new Vector3 ((i % mapInfo.width) * tileSize, (mapInfo.height - ((int)(i / mapInfo.width))) * tileSize, 0);
+      if (mapInfo.itemData [i] != 0) {
+        GameObject newItem = (GameObject) Instantiate (machinePartPrefab, new Vector3(0,0,0), Quaternion.identity);
+        newItem.transform.parent = transform;
+        newItem.transform.position = itemPosition;
+      }
     }
   }
 

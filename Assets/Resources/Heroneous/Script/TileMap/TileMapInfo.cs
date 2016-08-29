@@ -9,6 +9,7 @@ public class TileMapInfo
   public float tileWidth;
   public int[] tileData;
   public int[] collisionData;
+  public int[] itemData;
 
   public static TileMapInfo CreateFromJSON(string jsonString)
   {
