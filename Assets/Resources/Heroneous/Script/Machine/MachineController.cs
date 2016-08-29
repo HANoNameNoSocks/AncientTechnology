@@ -20,14 +20,17 @@ public class MachineController : MonoBehaviour {
 
     if (orderTime > orderDuration) {
       resetOrder ();
-      print ("Gheuuuuah... Ramenez moi un " + currentOrder + " les enfants !");
     }
 	}
 
   void OnCollisionEnter2D(Collision2D collision)
   {
-    if (collision.gameObject.name == "MachineElement") {
-      Destroy (collision.gameObject);
+    Component script = collision.gameObject.GetComponent<MachineElement> ();
+    if (script != null) {
+      if (collision.gameObject.GetComponent<MachineElement>().getObjectType() == currentOrder) {
+        Destroy (collision.gameObject);
+        resetOrder ();
+      }
     }
   }
 
@@ -36,6 +39,7 @@ public class MachineController : MonoBehaviour {
     orderTime = 0;
     orderDuration = getRandomDuration(OrderTime, OrderTimeVariance);
     currentOrder = ObjectTypesManager.Instance.getRandomItem();
+    print ("Gheuuuuah... Ramenez moi un " + currentOrder + " les enfants !");
   }
 
   private float getRandomDuration(float fixedTime, float variance)

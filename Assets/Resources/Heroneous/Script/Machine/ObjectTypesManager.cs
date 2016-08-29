@@ -47,7 +47,6 @@ public class ObjectTypesManager
     string res = "";
     int cpt = 0;
     int itemNb = (int)Math.Floor(UnityEngine.Random.value * objectTypes.Count);
-    Debug.Log (cpt + " " + itemNb);
     foreach(KeyValuePair<string, string> type in objectTypes)
     {
       if (cpt == itemNb) {

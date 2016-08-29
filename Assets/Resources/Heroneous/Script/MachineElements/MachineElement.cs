@@ -29,13 +29,6 @@ public class MachineElement : MonoBehaviour {
     }
 	}
 
-  void OnCollisionEnter2D(Collision2D collision)
-  {
-    if (collision.gameObject.name == "MachineElement") {
-      Destroy (collision.gameObject);
-    }
-  }
-
   public void setOwner(Greek owner) {
     this.owner = owner;
     thrower = null;
