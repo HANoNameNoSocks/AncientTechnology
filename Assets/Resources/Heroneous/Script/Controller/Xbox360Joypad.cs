@@ -26,7 +26,11 @@ public class Xbox360Joypad : Controller {
   }
 
   public override bool GetMenuConfirm() {
-    return Input.GetButtonDown("Start_" + padNumber) || Input.GetButtonDown("A_" + padNumber);
+    return Input.GetButtonDown("A_" + padNumber);
+  }
+
+  public override bool GetMenuStart() {
+    return Input.GetButtonDown("Start_" + padNumber);
   }
 
   public override bool GetMenuBack() {

@@ -5,12 +5,13 @@ using System.Collections.Generic;
 
 public class GameManager {
 
-  private GameManager instance;
+  private static GameManager instance = null;
 
-  public GameManager Instance{
+  public static GameManager Instance{
     get{ 
-      if (Instance == null) {
+      if (instance == null) {
         instance = new GameManager ();
+        instance.init ();
       }
       return instance;
     }
@@ -21,22 +22,25 @@ public class GameManager {
 
   private void init(){
     gameState = "mainMenu";
+    players = new Dictionary<string, bool>();
     players.Add ("player_1", false);
     players.Add ("player_2", false);
     players.Add ("player_3", false);
     players.Add ("player_4", false);
   }
 
-  private void addPlayer(int _padId)
+  public void addPlayer(int _padId)
   {
     string playerId = "player_" + _padId;
     players[playerId] = true;
   }
 
-  private void removePlayer(int _padId)
+  public void removePlayer(int _padId)
   {
     string playerId = "player_" + _padId;
-    players[playerId] = false;
+    if (players.ContainsKey (playerId)) {
+      players[playerId] = false;
+    }
   }
 
   public int getPlayerCount()
@@ -52,6 +56,16 @@ public class GameManager {
   public void setState(string _state)
   {
     gameState = _state;
+  }
+
+  public bool isPlayerIn(int _nb)
+  {
+    bool res = false;
+    if(players.ContainsKey("player_" + _nb))
+    {
+      res = players["player_"+_nb];
+    }
+    return res;
   }
 
 }

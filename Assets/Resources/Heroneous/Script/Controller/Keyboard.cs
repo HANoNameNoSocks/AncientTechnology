@@ -30,6 +30,10 @@ public class Keyboard : Controller {
   }
 
   public override bool GetMenuConfirm() {
+    return Input.GetKeyDown(KeyCode.Space);
+  }
+
+  public override bool GetMenuStart() {
     return Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter);
   }
 

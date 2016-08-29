@@ -7,6 +7,7 @@ public abstract class Controller {
     public abstract bool GetMenuGauche();
     public abstract bool GetMenuDroite();
     public abstract bool GetMenuConfirm();
+    public abstract bool GetMenuStart();
     public abstract bool GetMenuBack();
 
     // IN-GAME
