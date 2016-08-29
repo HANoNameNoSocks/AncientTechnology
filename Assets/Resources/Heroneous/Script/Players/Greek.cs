@@ -69,12 +69,11 @@ public class Greek : MonoBehaviour {
     }
   }
 
-  void OnCollisionEnter2D(Collision2D collision) {
+  void OnCollisionStay2D(Collision2D collision) {
     // Player
     Greek zorba = collision.gameObject.GetComponent<Greek>();
 
     if (zorba != null && state == GreekState.DASHING) {
-      camera.GetComponent<ScreenShake>().shake();
       zorba.shock();
       nextForce = Vector3.zero;
     }
@@ -86,9 +85,8 @@ public class Greek : MonoBehaviour {
       if (element.getState() == ElementState.THROWN) {
         if (element.getThrower() != this) { 
           shock();
-          camera.GetComponent<ScreenShake>().shake();
         }
-      } else if(possession == null){
+      } else if(possession == null && state != GreekState.SHOCKED){
         element.setOwner(this);
         possession = element;
       }
@@ -97,7 +95,9 @@ public class Greek : MonoBehaviour {
 
   void shock() {
     state = GreekState.SHOCKED;
+    camera.GetComponent<ScreenShake>().shake();
     coolDownState = 3;
+    dropElement();
   }
 
   void dash() {
@@ -109,6 +109,13 @@ public class Greek : MonoBehaviour {
       state = GreekState.DASHING;
       coolDownState = 0.2f;
       coolDownDash = 1;
+    }
+  }
+
+  void dropElement() {
+    if (possession != null) {
+      possession.thrown(Vector3.zero, possession.transform.position);
+      possession = null;
     }
   }
 
