@@ -8,6 +8,7 @@ public class MachineController : MonoBehaviour {
   public float OrderVisibility;
   public GameObject Bulle;
   public GameObject ElementSprite;
+  public GameObject camera;
   private double orderTime;
   private double orderDuration;
   private string currentOrder;
@@ -41,6 +42,7 @@ public class MachineController : MonoBehaviour {
       if (collision.gameObject.GetComponent<MachineElement>().getObjectType() == currentOrder) {
         collision.gameObject.GetComponent<MachineElement> ().getThrower ().GetComponent<Greek> ().incrementScore ();
         Destroy (collision.gameObject);
+        camera.GetComponent<ScreenShake> ().shake ();
         resetOrder ();
       }
     }

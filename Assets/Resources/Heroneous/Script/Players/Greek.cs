@@ -5,6 +5,7 @@ public enum GreekState { NORMAL, DASHING, SHOCKED };
 public class Greek : MonoBehaviour {
 
   public int Player;
+  public GameObject camera;
   private int Speed = 5000;
   private Vector3 decalageTete = new Vector3(0, 0.4f, 0);
   private Controller controller;
@@ -73,6 +74,7 @@ public class Greek : MonoBehaviour {
     Greek zorba = collision.gameObject.GetComponent<Greek>();
 
     if (zorba != null && state == GreekState.DASHING) {
+      camera.GetComponent<ScreenShake>().shake();
       zorba.shock();
       nextForce = Vector3.zero;
     }
@@ -84,6 +86,7 @@ public class Greek : MonoBehaviour {
       if (element.getState() == ElementState.THROWN) {
         if (element.getThrower() != this) { 
           shock();
+          camera.GetComponent<ScreenShake>().shake();
         }
       } else if(possession == null){
         element.setOwner(this);
