@@ -18,10 +18,11 @@ public class GameManager {
   }
 
   private Dictionary<string, bool> players;
+  private int winner;
   private string gameState;
 
   private void init(){
-    gameState = "mainMenu";
+    winner = 0;
     players = new Dictionary<string, bool>();
     players.Add ("player_1", false);
     players.Add ("player_2", false);
@@ -48,11 +49,6 @@ public class GameManager {
     return players.Count;
   }
 
-  public string getState()
-  {
-    return gameState;
-  }
-
   public void setState(string _state)
   {
     gameState = _state;
@@ -66,6 +62,16 @@ public class GameManager {
       res = players["player_"+_nb];
     }
     return res;
+  }
+
+  public void setWinner(int _winner)
+  {
+    winner = _winner;
+  }
+
+  public int getWinner()
+  {
+    return winner;
   }
 
 }

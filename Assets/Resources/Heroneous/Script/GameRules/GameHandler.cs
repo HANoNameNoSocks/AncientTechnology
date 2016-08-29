@@ -22,7 +22,8 @@ public class GameHandler : MonoBehaviour {
 	void Update () {
     for (int i = 0; i < 4; i++) {
       if (players [i].GetComponent<Greek> ().getScore () >= ScoreToWin) {
-        print ("player " + (i + 1) + " won !");
+        GameManager.Instance.setWinner (i);
+        Application.LoadLevel("ResultScreen");
       }
     }
 	}
