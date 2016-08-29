@@ -9,10 +9,14 @@ public class MachineElement : MonoBehaviour {
   private BoxCollider2D elementCollider;
   private ElementState state = ElementState.NORMAL;
 
+  private string objectType;
+
 	// Use this for initialization
 	void Start () {
     elementBody = gameObject.GetComponent<Rigidbody2D>();
     elementCollider = gameObject.GetComponent<BoxCollider2D>();
+    objectType = ObjectTypesManager.Instance.getRandomItem ();
+    setImage ();
   }
 	
 	// Update is called once per frame
@@ -24,6 +28,13 @@ public class MachineElement : MonoBehaviour {
       thrower = null;
     }
 	}
+
+  void OnCollisionEnter2D(Collision2D collision)
+  {
+    if (collision.gameObject.name == "MachineElement") {
+      Destroy (collision.gameObject);
+    }
+  }
 
   public void setOwner(Greek owner) {
     this.owner = owner;
@@ -51,5 +62,17 @@ public class MachineElement : MonoBehaviour {
 
   public Greek getThrower() {
     return thrower;
+  }
+
+  public string getObjectType()
+  {
+    return objectType;
+  }
+
+  private void setImage()
+  {
+    Sprite newSprite = new Sprite ();
+    newSprite = Resources.Load<Sprite> (ObjectTypesManager.Instance.getImagePath (objectType));
+    GetComponent<SpriteRenderer> ().sprite = newSprite;
   }
 }

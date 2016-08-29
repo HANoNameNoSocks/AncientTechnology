@@ -20,9 +20,16 @@ public class MachineController : MonoBehaviour {
 
     if (orderTime > orderDuration) {
       resetOrder ();
-      //print ("Gheuuuuah... Ramenez moi un " + currentOrder + " les enfants !");
+      print ("Gheuuuuah... Ramenez moi un " + currentOrder + " les enfants !");
     }
 	}
+
+  void OnCollisionEnter2D(Collision2D collision)
+  {
+    if (collision.gameObject.name == "MachineElement") {
+      Destroy (collision.gameObject);
+    }
+  }
 
   private void resetOrder()
   {
