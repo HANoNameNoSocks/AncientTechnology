@@ -5,6 +5,9 @@ public class MachineController : MonoBehaviour {
 
   public float OrderTime;
   public float OrderTimeVariance;
+  public float OrderVisibility;
+  public GameObject Bulle;
+  public GameObject ElementSprite;
   private double orderTime;
   private double orderDuration;
   private string currentOrder;
@@ -20,6 +23,14 @@ public class MachineController : MonoBehaviour {
 
     if (orderTime > orderDuration) {
       resetOrder ();
+    }
+
+    if (orderTime < OrderVisibility) {
+      Bulle.GetComponent<SpriteRenderer> ().enabled = true;
+      ElementSprite.GetComponent<SpriteRenderer> ().enabled = true;
+    } else {
+      Bulle.GetComponent<SpriteRenderer> ().enabled = false;
+      ElementSprite.GetComponent<SpriteRenderer> ().enabled = false;
     }
 	}
 
@@ -39,6 +50,7 @@ public class MachineController : MonoBehaviour {
     orderTime = 0;
     orderDuration = getRandomDuration(OrderTime, OrderTimeVariance);
     currentOrder = ObjectTypesManager.Instance.getRandomItem();
+    setElementImage ();
     print ("Gheuuuuah... Ramenez moi un " + currentOrder + " les enfants !");
   }
 
@@ -49,5 +61,10 @@ public class MachineController : MonoBehaviour {
     res += ((-1) * variance) + (Random.value * variance * 2);
 
     return res;
+  }
+
+  private void setElementImage()
+  {
+    ElementSprite.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite>(ObjectTypesManager.Instance.getImagePath (currentOrder));
   }
 }
