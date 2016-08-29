@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public enum GreekState { NORMAL, DASHING, SHOCKED };
 
@@ -22,6 +23,8 @@ public class Greek : MonoBehaviour {
   MachineElement possession;
 
   private int score;
+
+  private int currentAnimation = 7;
 
 
   void Start () {
@@ -67,6 +70,8 @@ public class Greek : MonoBehaviour {
         dash();
       }
     }
+
+    updateAnimation();
   }
 
   void OnCollisionStay2D(Collision2D collision) {
@@ -149,6 +154,32 @@ public class Greek : MonoBehaviour {
   public float getScore()
   {
     return score;
+  }
+
+  public void updateAnimation() {
+    int nextAnimation = 4;
+    
+    if (state == GreekState.NORMAL) {
+      if (nextForce.magnitude == 0) {
+        // stop
+        nextAnimation = currentAnimation % 4 + 4;
+      } else if (Math.Abs(nextForce.x) > Math.Abs(nextForce.y)) {
+        if (nextForce.x > 0) {
+          nextAnimation = 0;
+        } else {
+          nextAnimation = 1;
+        }
+      } else {
+        if (nextForce.y > 0) {
+          nextAnimation = 2;
+        } else {
+          nextAnimation = 3;
+        }
+      }
+    }
+
+    transform.GetComponent<Animator>().SetInteger("status", nextAnimation);
+    currentAnimation = nextAnimation;
   }
 
   #endregion
