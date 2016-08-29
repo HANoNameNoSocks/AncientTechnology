@@ -2,58 +2,56 @@
 using System.Collections;
 
 public class TitleScreenHandler : MonoBehaviour {
-
+  
   public GameObject player_1;
   public GameObject player_2;
   public GameObject player_3;
   public GameObject player_4;
 
+  private GameObject[] players;
+
 	// Use this for initialization
 	void Start () {
-    player_1.GetComponent<SpriteRenderer> ().enabled = false;
-    player_2.GetComponent<SpriteRenderer> ().enabled = false;
-    player_3.GetComponent<SpriteRenderer> ().enabled = false;
-    player_4.GetComponent<SpriteRenderer> ().enabled = false;
+    players = new GameObject[4];
+
+    players[0] = player_1;
+    players[1] = player_2;
+    players[2] = player_3;
+    players[3] = player_4;
+
+    for (int i = 0; i < 4; i++) {
+      players[i].SetActive(false); ;
+    }
 	}
 	
 	// Update is called once per frame
 	void Update () {
     for (int i = 0; i < 4; i++) {
       if (ControllerManager.Instance.Controllers [i].GetMenuConfirm ()){
-        GameManager.Instance.addPlayer(i);
+        addPlayer(i);
       }
 
       if (ControllerManager.Instance.Controllers [i].GetMenuBack()){
-          GameManager.Instance.removePlayer(i);
+        removePlayer(i);
       }
 
-      if(ControllerManager.Instance.Controllers[i].GetMenuStart()){
+      if(ControllerManager.Instance.Controllers[i].GetMenuStart() && GameManager.Instance.isPlayerIn(i)){
         Application.LoadLevel("TestControles");
       }
 	  }
+  }
 
-    if (GameManager.Instance.isPlayerIn (0)) {
-      player_1.GetComponent<SpriteRenderer> ().enabled = true;
-    } else {
-      player_1.GetComponent<SpriteRenderer> ().enabled = false;
-    }
+  void addPlayer(int i) {
+    GameManager.Instance.addPlayer(i);
+    players[i].SetActive(true);
+    //players[i].GetComponent<SpriteRenderer>().enabled = true;
+    //players[i].GetComponent<Greek>().enabled = true;
+  }
 
-    if (GameManager.Instance.isPlayerIn (1)) {
-      player_2.GetComponent<SpriteRenderer> ().enabled = true;
-    } else {
-      player_2.GetComponent<SpriteRenderer> ().enabled = false;
-    }
-
-    if (GameManager.Instance.isPlayerIn (2)) {
-      player_3.GetComponent<SpriteRenderer> ().enabled = true;
-    } else {
-      player_3.GetComponent<SpriteRenderer> ().enabled = false;
-    }
-
-    if (GameManager.Instance.isPlayerIn (3)) {
-      player_4.GetComponent<SpriteRenderer> ().enabled = true;
-    } else {
-      player_4.GetComponent<SpriteRenderer> ().enabled = false;
-    }
+  void removePlayer(int i) {
+    GameManager.Instance.removePlayer(i);
+    players[i].SetActive(false);
+    //players[i].GetComponent<SpriteRenderer>().enabled = false;
+    //players[i].GetComponent<Greek>().enabled = false;
   }
 }

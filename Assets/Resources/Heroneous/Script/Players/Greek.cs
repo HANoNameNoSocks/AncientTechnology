@@ -95,7 +95,9 @@ public class Greek : MonoBehaviour {
 
   void shock() {
     state = GreekState.SHOCKED;
-    camera.GetComponent<ScreenShake>().shake();
+    if (camera != null) {
+      camera.GetComponent<ScreenShake>().shake();
+    }
     coolDownState = 3;
     dropElement();
   }
