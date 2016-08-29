@@ -82,7 +82,7 @@ public class Greek : MonoBehaviour {
         if (element.getThrower() != this) { 
           shock();
         }
-      } else {
+      } else if(possession == null){
         element.setOwner(this);
         possession = element;
       }
