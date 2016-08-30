@@ -3,16 +3,22 @@
 public enum ElementState { NORMAL, THROWN };
 
 public class MachineElement : MonoBehaviour {
+
+  public GameObject camera;
   private Greek owner;
   private Greek thrower;
   private Rigidbody2D elementBody;
   private BoxCollider2D elementCollider;
   private ElementState state = ElementState.NORMAL;
 
+  public AudioClip sndhit;
+
   private string objectType;
 
 	// Use this for initialization
 	void Start () {
+    camera = GameObject.Find ("Main Camera");    
+    sndhit = Resources.Load<AudioClip> ("Heroneous/Sounds/hitPlayer");
     elementBody = gameObject.GetComponent<Rigidbody2D>();
     elementCollider = gameObject.GetComponent<BoxCollider2D>();
     objectType = ObjectTypesManager.Instance.getRandomItem ();
@@ -28,6 +34,11 @@ public class MachineElement : MonoBehaviour {
       thrower = null;
     }
 	}
+
+  void OnCollisionEnter2D(Collision2D collision)
+  {
+    camera.GetComponent<AudioSource> ().PlayOneShot (sndhit, 1);
+  }
 
   public void setOwner(Greek owner) {
     this.owner = owner;

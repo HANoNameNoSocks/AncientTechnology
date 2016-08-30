@@ -8,6 +8,15 @@ public class TitleScreenHandler : MonoBehaviour {
   public GameObject player_3;
   public GameObject player_4;
 
+  public AudioClip voice_1;
+  public AudioClip voice_2;
+  public AudioClip voice_3;
+  public AudioClip voice_4;
+  public AudioClip sndAdd;
+  public AudioClip sndRemove;
+
+  public GameObject camera;
+
   private GameObject[] players;
 
 	// Use this for initialization
@@ -44,10 +53,22 @@ public class TitleScreenHandler : MonoBehaviour {
   void addPlayer(int i) {
     GameManager.Instance.addPlayer(i);
     players[i].SetActive(true);
+    camera.GetComponent<AudioSource> ().PlayOneShot (sndAdd, 0.6f);
+
+    if (i == 0) {
+      camera.GetComponent<AudioSource> ().PlayOneShot (voice_1, 1);
+    } else if (i == 1) {
+      camera.GetComponent<AudioSource> ().PlayOneShot (voice_2, 1);
+    }else if (i == 2) {
+      camera.GetComponent<AudioSource> ().PlayOneShot (voice_3, 1);
+    }else if (i == 3) {
+      camera.GetComponent<AudioSource> ().PlayOneShot (voice_4, 1);
+    }
   }
 
   void removePlayer(int i) {
     GameManager.Instance.removePlayer(i);
     players[i].SetActive(false);
+    camera.GetComponent<AudioSource> ().PlayOneShot (sndRemove);
   }
 }

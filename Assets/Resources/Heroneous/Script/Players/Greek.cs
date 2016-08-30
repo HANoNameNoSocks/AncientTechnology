@@ -27,6 +27,9 @@ public class Greek : MonoBehaviour {
   private int direction = 3;
   private int currentAnimation = 7;
 
+  public AudioClip sndpain;
+  public AudioClip snddash;
+  public AudioClip snddash2;
 
   void Start () {
     controller = ControllerManager.Instance.Controllers[Player];
@@ -100,6 +103,7 @@ public class Greek : MonoBehaviour {
   }
 
   void shock() {
+    camera.GetComponent<AudioSource> ().PlayOneShot (sndpain, 1);
     state = GreekState.SHOCKED;
     if (camera != null) {
       camera.GetComponent<ScreenShake>().shake();
@@ -113,6 +117,8 @@ public class Greek : MonoBehaviour {
       throwElement();
       coolDownDash = 1;
     } else if (!tired()) {
+      camera.GetComponent<AudioSource> ().PlayOneShot (snddash, 1);
+      camera.GetComponent<AudioSource> ().PlayOneShot (snddash2, 1);
       nextForce *= 3;
       state = GreekState.DASHING;
       coolDownState = 0.2f;
